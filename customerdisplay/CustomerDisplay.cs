@@ -33,12 +33,8 @@ namespace customerdisplay
         }
 
         [DllExport("cdshowdisplay")]
-        public static bool CDShowCustomerDisplay(int mode)
+        public static bool CDShowCustomerDisplay()
         {
-
-            MessageBox.Show(mode.ToString());
-            displayMode = (DisplayMode)mode;
-
             if(formMgr == null)
             {
                 formMgr = new DLLFormMgr();
