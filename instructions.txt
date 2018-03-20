@@ -1,0 +1,7 @@
+place pms9.isl in \Micros\RES\POS\etc
+place customerdisplay.dll in \Micros\RES\POS\Bin
+start Micros
+i placed messages to alert for testing
+signin (script should load dll and open display)
+take an order (script should update display with new items added)
+
