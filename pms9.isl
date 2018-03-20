@@ -4,7 +4,7 @@ var dll_handle:N32
 
 event signin	
 	DLLLoad dll_handle, "customerdisplay.dll"	
-	DLLCALL_CDECL dll_handle, cdshowdisplay () 
+	DLLCALL_CDECL dll_handle, cdshowdisplay (1) 
 	
 endevent
 
@@ -17,7 +17,7 @@ endevent
 
 
 event signout
-	DLLCall_CDECL dll_handle, cdsenddata (2,0,"",0,"", "")
+	DLLCall_CDECL dll_handle, cdsenddata (2,0,"",0,"", "","")  
 endevent
 
 event begin_check
@@ -61,7 +61,7 @@ EndEvent
 
 event dsc
 	@DSC
-	DLLCall_CDECL dll_handle, cdsenddata (messagetype, 0, "", 0, "", "", "");
+	DLLCall_CDECL dll_handle, cdsenddata (messagetype, 0, "", 0, "", "", @DSC);
 endevent
 
 event DSC_VOID

@@ -35,14 +35,17 @@ namespace customerdisplay
         [DllExport("cdshowdisplay")]
         public static bool CDShowCustomerDisplay(int mode)
         {
+
+            MessageBox.Show(mode.ToString());
             displayMode = (DisplayMode)mode;
 
             if(formMgr == null)
             {
                 formMgr = new DLLFormMgr();
             }
-
-            formMgr.UpdateDisplayMode();
+            MessageBox.Show("2");
+            Thread.Sleep(100);
+           formMgr.UpdateDisplayMode();
 
             return true;
         }
