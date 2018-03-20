@@ -43,14 +43,27 @@ namespace customerdisplay
             {
                 formMgr = new DLLFormMgr();
             }
-            MessageBox.Show("2");
-            Thread.Sleep(100);
-           formMgr.UpdateDisplayMode();
+           
 
             return true;
         }
 
- 
+        [DllExport("cdsetdisplaymode")]
+        public static void CDSetDisplayMode(int mode)
+        {
+            if (mode == 1)
+            {
+                displayMode = DisplayMode.OpenOrder;
+            }
+                else //if (mode == 2)
+            {
+                displayMode = DisplayMode.PaidOrder;
+            }
+
+            formMgr.UpdateDisplayMode();
+        }
+
+
         [DllExport("cdsenddata")]
         public static void CDSendOrderData(int message, int microsCheckItemID, [MarshalAs(UnmanagedType.LPStr)]  string title, int quanitity, [MarshalAs(UnmanagedType.LPStr)] string priceString, [MarshalAs(UnmanagedType.LPStr)] string taxTotalString, [MarshalAs(UnmanagedType.LPStr)] string extraVal)
         {
