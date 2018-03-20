@@ -47,24 +47,13 @@ namespace customerdisplay
             return true;
         }
 
-        [DllExport("cdsetimagedir")]
-        public static void CDSetImageDirectory([MarshalAs(UnmanagedType.LPStr)]string path)
-        {
-            //MessageBox.Show("1");
-              // imagesDirectory = path;
-            //MessageBox.Show("2");
-            //formMgr.SetImagesDirectory();
-            
-        }
-
+ 
         [DllExport("cdsenddata")]
-        public static void CDSendOrderData(int message, int microsCheckItemID, [MarshalAs(UnmanagedType.LPStr)]  string title, int quanitity, [MarshalAs(UnmanagedType.LPStr)] string priceString, [MarshalAs(UnmanagedType.LPStr)] string taxTotalString, [MarshalAs(UnmanagedType.LPStr)] string discountString)
+        public static void CDSendOrderData(int message, int microsCheckItemID, [MarshalAs(UnmanagedType.LPStr)]  string title, int quanitity, [MarshalAs(UnmanagedType.LPStr)] string priceString, [MarshalAs(UnmanagedType.LPStr)] string taxTotalString, [MarshalAs(UnmanagedType.LPStr)] string extraVal)
         {
             float price = float.Parse(priceString);
             float taxTotal = float.Parse(taxTotalString);
-            float discount = float.Parse(discountString);
-
-
+            
             if (orderData == null)
             {
                 orderData = new OrderData();
@@ -81,23 +70,34 @@ namespace customerdisplay
             else if (message == 1) //add condement...
             {
                 orderData.addCondement(title, price, microsCheckItemID);
-                
+                formMgr.UpdateOrder();
+
             }
-            else if (message == 2) //clear order display
+            else if (message == 2) //clear order display (cancel order)
             {
                 orderData.orderItems.Clear();
                 orderData.tax = 0;
                 orderData.discount = 0;
+                orderData.amountPaid = 0;
                 formMgr.UpdateOrder();
             }
-            else if (message == 3) //add discount
+            else if (message == 3) //update discount
             {
-                orderData.discount = discount;
+                orderData.discount = float.Parse(extraVal);
                 formMgr.UpdateOrder();
             }
-            else if (message == 4) //change to other screen
+            else if (message == 4) //update amount paid
+            {
+                orderData.amountPaid = float.Parse(extraVal);
+                formMgr.UpdateOrder();
+            }
+            else if(message == 5) //void item
             {
 
+            }
+            else
+            {
+                MessageBox.Show("isl script called cdsenddata in dll with bad message value");
             }
         }
     }

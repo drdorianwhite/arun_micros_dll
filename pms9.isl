@@ -35,8 +35,6 @@ endevent
 
 Event MI
 	var i:N3
-	var tmpstr:A20
-	var tmpstr2:A20
 	var messagetype:N2
 
  
@@ -53,16 +51,17 @@ Event MI
 				messagetype = 0
 			endif 
 
-			tmpstr = " "  +  @dtl_ttl[i]
+			//tmpstr = " "  +  @dtl_ttl[i]
 
-			DLLCall_CDECL dll_handle, cdsenddata (messagetype, i, @DTL_NAME[i], @DTL_QTY[i], tmpstr, @tax[1] )
+			DLLCall_CDECL dll_handle, cdsenddata (messagetype, i, @DTL_NAME[i], @DTL_QTY[i],  @dtl_ttl[i], @tax[1], "")
 		endif
 	endfor
 
 EndEvent 
 
 event dsc
-
+	@DSC
+	DLLCall_CDECL dll_handle, cdsenddata (messagetype, 0, "", 0, "", "", "");
 endevent
 
 event DSC_VOID

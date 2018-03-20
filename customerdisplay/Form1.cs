@@ -41,20 +41,39 @@ namespace customerdisplay
             float tax = CustomerDisplay.orderData.tax;
             float discount = CustomerDisplay.orderData.discount;
             float total = subtotal + tax + discount;
+            float amountPaid = CustomerDisplay.orderData.amountPaid;
+            float change = 0;
 
-            //listView2.Items[0].SubItems[1].Text = "$" + subtotal.ToString();
-            //listView2.Items[1].SubItems[1].Text = "$" + tax.ToString();
-            //listView2.Items[3].SubItems[1].Text = "$" + total;
+            if(amountPaid > 0)
+                change = amountPaid - total;
+
+    
             listView2.Items[0].SubItems[1].Text = String.Format("{0:C}", subtotal);
             listView2.Items[1].SubItems[1].Text = String.Format("{0:C}", tax);
             listView2.Items[2].SubItems[1].Text = String.Format("{0:C}", discount);
             listView2.Items[3].SubItems[1].Text = listView2.Items[1].SubItems[1].Text = String.Format("{0:C}", total);
 
+            listView3.Items[0].SubItems[1].Text = String.Format("{0:C}", total);
+            listView3.Items[1].SubItems[1].Text = String.Format("{0:C}", amountPaid);
+            listView3.Items[1].SubItems[1].Text = String.Format("{0:C}", change);
         }
 
         internal void UpdateDisplayMode()
         {
-            throw new NotImplementedException();
+            switch(CustomerDisplay.displayMode)
+            { 
+                case CustomerDisplay.DisplayMode.OpenOrder:
+                    this.pnlPaidScreen.Visible = false;
+                    break;
+                case CustomerDisplay.DisplayMode.PaidOrder:
+                    this.pnlPaidScreen.Visible = true;
+                    break;
+                case CustomerDisplay.DisplayMode.BeforeOrder:
+                default:
+                    this.pnlPaidScreen.Visible = false;
+                    break;
+            }
+        
         }
 
         public Form1()

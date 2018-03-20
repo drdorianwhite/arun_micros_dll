@@ -24,6 +24,7 @@ public class OrderData
         public float price;
         public int microsCheckItemID;
         public float discount = 0;
+        public float amountPaid = 0;
         public List<Condement> condements = new List<Condement>();
 
         

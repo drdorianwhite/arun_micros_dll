@@ -47,7 +47,7 @@ namespace customerdisplay
 
         internal void UpdateDisplayMode()
         {
-            appContext.MainForm.Invoke(new UpdateDisplayModeMethod(DispatchUpdateDisplayMode))
+            appContext.MainForm.Invoke(new UpdateDisplayModeMethod(DispatchUpdateDisplayMode));
         }
 
         private void DispatchUpdateDisplayMode()
@@ -65,7 +65,6 @@ namespace customerdisplay
             Application.Run(appContext);
         }
 
- 
 
         public void UpdateOrder()
         {
