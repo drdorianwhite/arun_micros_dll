@@ -3,8 +3,9 @@ var dll_handle:N32
 
 
 event signin	
-	DLLLoad dll_handle, "customerdisplay.dll"	
-	DLLCALL_CDECL dll_handle, cdshowdisplay () 
+	DLLLoad dll_handle, "customerdisplay.dll"
+	DLLCALL_CDECL dll_handle, cdshowcustomerdisplay () 
+	DLLCALL_CDECL dll_handle, cdsetdisplaymode (1)
 endevent
 
 event init
@@ -16,19 +17,15 @@ endevent
 
 
 event signout
-	DLLCall_CDECL dll_handle, cdsenddata (2,0,"",0,"", "","")  
+	DLLCall_CDECL dll_handle, cdsenddata (2,0," ",0," "," "," ")  
 endevent
 
 event begin_check
-	infomessage "new check"
+	DLLCALL_CDECL dll_handle, cdsenddata (2,1," ",0, " ", " ", " ")
 endevent
 
-event begincheck
-	infomessage "new check2"
-endevent
-
-event closecheck
-	infomessage "check closed"
+event close_check
+	DLLCALL_CDECL dll_handle, cdsetdisplaymode (1)
 endevent
 
 
@@ -42,7 +39,7 @@ Event MI
 			
 			if @Dtl_is_void[i] = 1
 				infomessage @dtl_name[i] + " voided now"
-			tmpstr2 = " " +  @tax[1]
+			endif
 			
 			if @Dtl_is_cond[i] = 1
 				messagetype = 1
@@ -50,7 +47,6 @@ Event MI
 				messagetype = 0
 			endif 
 
-			//tmpstr = " "  +  @dtl_ttl[i]
 
 			DLLCall_CDECL dll_handle, cdsenddata (messagetype, i, @DTL_NAME[i], @DTL_QTY[i],  @dtl_ttl[i], @tax[1], "")
 		endif
@@ -60,15 +56,17 @@ EndEvent
 
 event dsc
 	@DSC
-	DLLCall_CDECL dll_handle, cdsenddata (messagetype, 0, "", 0, "", "", @DSC);
+	DLLCall_CDECL dll_handle, cdsenddata (3, 0, "", 0, "", "", @DSC);
 endevent
 
 event DSC_VOID
+	DLLCALL_CDECL dll_handle, cdsenddata (3,0," ",0, " ", " ", "0")
 endevent
  
 event mi_void
 	infomessage @obj + " voided"
 	infomessage @DTL_NAME[@obj] + " voided"
+	DLLCALL_CDECL dll_handle, cdsenddata (5,@obj," ",0, " ", " ", " ")
 endevent
 
 event mi_return
@@ -79,10 +77,10 @@ event repopen_check
 endevent
 
 event tndr
+//figure out amount paid (or change?)
 endevent
 
-event close_check
-endevent
 
 event final_tender
+	DLLCALL_CDECL dll_handle, cdsetdisplaymode (1)
 endevent

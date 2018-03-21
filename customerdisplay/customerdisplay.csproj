@@ -56,9 +56,6 @@
     <DllExportIdent>160D17BD-F3E8-42D1-873D-819E5CBF0D89</DllExportIdent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoClosingMessageBox, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoClosingMessageBox.1.0.0.2\lib\net40\AutoClosingMessageBox.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

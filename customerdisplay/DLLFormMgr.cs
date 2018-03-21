@@ -25,8 +25,11 @@ namespace customerdisplay
 
         private void OnThreadExit(object sender, EventArgs e)
         {
-            appContext.MainForm.Dispose();
-            appContext.MainForm = null;
+            if(appContext.MainForm != null)
+            { 
+                appContext.MainForm.Dispose();
+                appContext.MainForm = null;
+            }
             displayWindow = null;
             appContext.Dispose();
             appContext = null;
@@ -38,6 +41,7 @@ namespace customerdisplay
 
             if (appContext == null)
             {
+       
                 t = new Thread(new ThreadStart(this.ThreadProc));
                 t.IsBackground = true;
                 t.SetApartmentState(ApartmentState.STA);
@@ -60,6 +64,7 @@ namespace customerdisplay
 
         private void ThreadProc()
         {
+            
             displayWindow = new Form1();
             displayWindow.Show();
             appContext = new ApplicationContext(displayWindow);

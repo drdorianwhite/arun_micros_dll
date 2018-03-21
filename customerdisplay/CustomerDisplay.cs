@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.IO;
 
 namespace customerdisplay
 {
@@ -20,33 +21,44 @@ namespace customerdisplay
         }
 
         public static string lastError = null;
-        public static DLLFormMgr formMgr;
-        public static OrderData orderData = null;
+        public static DLLFormMgr formMgr = null;
+        public static OrderData orderData = new OrderData();
         public static DisplayMode displayMode = DisplayMode.OpenOrder;
-        public static string imagesDirectory = "C:\\Micros\\images";
+        public static string imagesDirectory = @"C:\\Micros\\images";
         
+
+        /*
         [DllExport("cdgeterror")]
         [return: MarshalAs(UnmanagedType.LPStr)]
         public static  string CDGetLastError()
         {
             return lastError;
         }
-
-        [DllExport("cdshowdisplay")]
-        public static bool CDShowCustomerDisplay()
+        */
+        [DllExport("cdshowcustomerdisplay")]
+        public static void CDShowCustomerDisplay()
         {
             if(formMgr == null)
             {
-                formMgr = new DLLFormMgr();
+               
+
+                if (!Directory.Exists(imagesDirectory))
+                    MessageBox.Show("image directory: " + imagesDirectory + " doesn't exist.  Cusomer display won't work!");
+                else
+                {
+                    
+                    formMgr = new DLLFormMgr();
+                }
             }
-           
-
-            return true;
+          
+  
         }
-
+       
         [DllExport("cdsetdisplaymode")]
         public static void CDSetDisplayMode(int mode)
         {
+
+            MessageBox.Show("started cdshowdisplay");
             if (mode == 1)
             {
                 displayMode = DisplayMode.OpenOrder;
@@ -56,32 +68,26 @@ namespace customerdisplay
                 displayMode = DisplayMode.PaidOrder;
             }
 
+            Thread.Sleep(200);
             formMgr.UpdateDisplayMode();
         }
 
 
         [DllExport("cdsenddata")]
-        public static void CDSendOrderData(int message, int microsCheckItemID, [MarshalAs(UnmanagedType.LPStr)]  string title, int quanitity, [MarshalAs(UnmanagedType.LPStr)] string priceString, [MarshalAs(UnmanagedType.LPStr)] string taxTotalString, [MarshalAs(UnmanagedType.LPStr)] string extraVal)
-        {
-            float price = float.Parse(priceString);
-            float taxTotal = float.Parse(taxTotalString);
+        public static void CDSendOrderData(int message, int itemid, [MarshalAs(UnmanagedType.LPStr)]string title, int quantity, [MarshalAs(UnmanagedType.LPStr)] string price, [MarshalAs(UnmanagedType.LPStr)] string taxTotal, [MarshalAs(UnmanagedType.LPStr)] string extra)
+        {  
             
-            if (orderData == null)
-            {
-                orderData = new OrderData();
-                displayMode = DisplayMode.OpenOrder;
-
-            }
-
             if (message == 0) //add new item
             {
-                orderData.addItem(title, quanitity, price, microsCheckItemID);
-                orderData.tax = taxTotal;
+                orderData.addItem(title, quantity, float.Parse(price), itemid);
+                orderData.tax = float.Parse(taxTotal);
+                Thread.Sleep(50);
                 formMgr.UpdateOrder();
             }
             else if (message == 1) //add condement...
             {
-                orderData.addCondement(title, price, microsCheckItemID);
+                orderData.addCondement(title, float.Parse(price), itemid);
+                Thread.Sleep(50);
                 formMgr.UpdateOrder();
 
             }
@@ -91,16 +97,19 @@ namespace customerdisplay
                 orderData.tax = 0;
                 orderData.discount = 0;
                 orderData.amountPaid = 0;
+                Thread.Sleep(50);
                 formMgr.UpdateOrder();
             }
             else if (message == 3) //update discount
             {
-                orderData.discount = float.Parse(extraVal);
+                orderData.discount = float.Parse(extra);
+                Thread.Sleep(50);
                 formMgr.UpdateOrder();
             }
             else if (message == 4) //update amount paid
             {
-                orderData.amountPaid = float.Parse(extraVal);
+                orderData.amountPaid = float.Parse(extra);
+                Thread.Sleep(50);
                 formMgr.UpdateOrder();
             }
             else if(message == 5) //void item
@@ -111,6 +120,7 @@ namespace customerdisplay
             {
                 MessageBox.Show("isl script called cdsenddata in dll with bad message value");
             }
+            
         }
     }
 }

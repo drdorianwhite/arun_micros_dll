@@ -37,6 +37,7 @@ namespace customerdisplay
                 i.SubItems.Add(item.price.ToString());
                 listView1.Items.Add(i);
             }
+
             float subtotal = CustomerDisplay.orderData.getSubtotal();
             float tax = CustomerDisplay.orderData.tax;
             float discount = CustomerDisplay.orderData.discount;
@@ -44,10 +45,10 @@ namespace customerdisplay
             float amountPaid = CustomerDisplay.orderData.amountPaid;
             float change = 0;
 
-            if(amountPaid > 0)
+            if (amountPaid > 0)
                 change = amountPaid - total;
 
-    
+
             listView2.Items[0].SubItems[1].Text = String.Format("{0:C}", subtotal);
             listView2.Items[1].SubItems[1].Text = String.Format("{0:C}", tax);
             listView2.Items[2].SubItems[1].Text = String.Format("{0:C}", discount);
@@ -80,10 +81,12 @@ namespace customerdisplay
         {
             InitializeComponent();
 
+       
+
             if (Screen.AllScreens.Length < 2)
             {
                 //throw new Exception("second display not found");
-                AutoClosingMessageBox.Show("Second Display not found (creating test window)", "Micros", 2000);
+                MessageBox.Show("Second Display not found (creating test window)", "Micros");
             }
             else
             {
