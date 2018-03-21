@@ -22,7 +22,7 @@ namespace customerdisplay
         public static string lastError = null;
         public static DLLFormMgr formMgr;
         public static OrderData orderData = null;
-        public static DisplayMode displayMode = DisplayMode.BeforeOrder;
+        public static DisplayMode displayMode = DisplayMode.OpenOrder;
         public static string imagesDirectory = "C:\\Micros\\images";
         
         [DllExport("cdgeterror")]

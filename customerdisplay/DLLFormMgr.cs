@@ -47,7 +47,10 @@ namespace customerdisplay
 
         internal void UpdateDisplayMode()
         {
-            appContext.MainForm.Invoke(new UpdateDisplayModeMethod(DispatchUpdateDisplayMode));
+            if (appContext == null)
+                MessageBox.Show("calling updatedisplay before display window launched");
+            else
+                appContext.MainForm.Invoke(new UpdateDisplayModeMethod(DispatchUpdateDisplayMode));
         }
 
         private void DispatchUpdateDisplayMode()

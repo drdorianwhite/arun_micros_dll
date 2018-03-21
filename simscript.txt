@@ -1,4 +1,0 @@
-event signin
-	var dll_handle:N9
-	DLLLoad dll_handle, “customerdisplay.dll”
-endevent

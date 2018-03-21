@@ -5,7 +5,6 @@ var dll_handle:N32
 event signin	
 	DLLLoad dll_handle, "customerdisplay.dll"	
 	DLLCALL_CDECL dll_handle, cdshowdisplay () 
-	DLLCALL_CDECL dll_handle, cdsetdisplaymode (1)
 endevent
 
 event init
