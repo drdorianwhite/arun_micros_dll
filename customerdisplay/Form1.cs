@@ -36,6 +36,11 @@ namespace customerdisplay
                 ListViewItem i = new ListViewItem(item.quantity + "x " + item.itemName);
                 i.SubItems.Add(item.price.ToString());
                 listView1.Items.Add(i);
+                foreach(OrderData.OrderItem.Condement c in item.condements)
+                {
+                    i = new ListViewItem(c.description);
+                    listView1.Items.Add(i);
+                }
             }
 
             float subtotal = CustomerDisplay.orderData.getSubtotal();

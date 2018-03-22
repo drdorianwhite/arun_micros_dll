@@ -39,6 +39,9 @@ public class OrderData
 
     public void addItem(String itemName, int quantity, float price, int microsCheckItemID)
     {
+        if (this.hasItem(microsCheckItemID))
+            return;
+
         OrderItem item = new OrderItem();
         item.itemName = itemName;
         item.quantity = quantity;

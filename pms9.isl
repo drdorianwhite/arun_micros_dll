@@ -43,19 +43,19 @@ Event MI
 			
 			if @Dtl_is_cond[i] = 1
 				messagetype = 1
+				infomessage "condement:" + @DTL_NAME[i]
 			else
 				messagetype = 0
 			endif 
 
 
-			DLLCall_CDECL dll_handle, cdsenddata (messagetype, i, @DTL_NAME[i], @DTL_QTY[i],  @dtl_ttl[i], @tax[1], "")
+			DLLCall_CDECL dll_handle, cdsenddata (messagetype, i, @DTL_NAME[i], @DTL_QTY[i],  @dtl_ttl[i], @tax[i], "")
 		endif
 	endfor
 
 EndEvent 
 
 event dsc
-	@DSC
 	DLLCall_CDECL dll_handle, cdsenddata (3, 0, "", 0, "", "", @DSC);
 endevent
 
@@ -90,7 +90,7 @@ endevent
 
 
 event final_tender
-//@CHANGE (has value if ttldue == "0.00")
+//@CHANGE (has value if ttldue == "$0.00")
 //@TTLDUE (how muc is still needed)
 //@CHK_TTL (total of check)
 	DLLCALL_CDECL dll_handle, cdsetdisplaymode (1)
