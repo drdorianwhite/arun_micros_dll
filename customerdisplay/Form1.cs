@@ -100,6 +100,10 @@ namespace customerdisplay
             }
 
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pnlPaidScreen.Width = this.Size.Width;
+            pnlPaidScreen.Height = this.Size.Height;
+            pictureBox2.Width = this.Size.Width - pictureBox2.Location.X;
+            
             SetPictureDirectory();
             timer1.Start();
         }
