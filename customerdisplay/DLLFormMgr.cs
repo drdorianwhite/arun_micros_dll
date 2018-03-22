@@ -78,7 +78,7 @@ namespace customerdisplay
 
         public void UpdateOrder()
         {
-            Thread.Sleep(50);
+            Thread.Sleep(100);
             UpdateOrderDisplay function = new UpdateOrderDisplay(DispatchUpdateOrderDisplay);
             appContext.MainForm.Invoke(function);
         }

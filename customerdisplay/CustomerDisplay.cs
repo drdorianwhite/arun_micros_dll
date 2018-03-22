@@ -26,15 +26,6 @@ namespace customerdisplay
         public static DisplayMode displayMode = DisplayMode.OpenOrder;
         public static string imagesDirectory = @"C:\\Micros\\images";
         
-
-        /*
-        [DllExport("cdgeterror")]
-        [return: MarshalAs(UnmanagedType.LPStr)]
-        public static  string CDGetLastError()
-        {
-            return lastError;
-        }
-        */
         [DllExport("cdshowcustomerdisplay")]
         public static void CDShowCustomerDisplay()
         {
@@ -82,10 +73,8 @@ namespace customerdisplay
             }
             else if (message == 1) //add condement...
             {
-                MessageBox.Show("adding condement:" + title);
                 orderData.addCondement(title, float.Parse(price), itemid);
                 formMgr.UpdateOrder();
-
             }
             else if (message == 2) //clear order display (cancel order)
             {
@@ -102,7 +91,7 @@ namespace customerdisplay
             }
             else if (message == 4) //update amount paid
             {
-                orderData.amountPaid = float.Parse(extra);
+                orderData.SetTotalAndPaid(float.Parse(price), float.Parse(extra));
                 formMgr.UpdateOrder();
             }
             else if(message == 5) //void item

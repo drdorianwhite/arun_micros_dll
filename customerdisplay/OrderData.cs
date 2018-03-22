@@ -35,7 +35,19 @@ public class OrderData
     public List<OrderItem> orderItems = new List<OrderItem>();
     public float tax;
     public float discount;
+    public float totalDue;
     public float amountPaid;
+    public float change;
+
+    public void SetTotalAndPaid(float total, float paid)
+    {
+        this.totalDue = total;
+        this.amountPaid = paid;
+
+        if (this.amountPaid > this.totalDue)
+            this.change = this.amountPaid - this.totalDue;
+    }
+
 
     public void addItem(String itemName, int quantity, float price, int microsCheckItemID)
     {
@@ -55,9 +67,23 @@ public class OrderData
         orderItems.RemoveAt(orderItems.Count - 1);
     }
 
+    public bool hasCondement(int microsCheckItemID)
+    {
+        foreach (OrderItem.Condement c in orderItems[orderItems.Count - 1].condements)
+        {
+            if (c.microsCheckItemID == microsCheckItemID)
+                return true;
+        }
+
+        return false;
+    }
+
     //adds to last menu item ordered
     public void addCondement(String name, float price, int microsCheckItemID)
     {
+        if (this.hasCondement(microsCheckItemID))
+            return;
+
         OrderItem.Condement condement = new OrderItem.Condement();
         condement.description = name;
         condement.microsCheckItemID = microsCheckItemID;

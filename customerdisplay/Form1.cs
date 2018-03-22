@@ -57,11 +57,11 @@ namespace customerdisplay
             listView2.Items[0].SubItems[1].Text = String.Format("{0:C}", subtotal);
             listView2.Items[1].SubItems[1].Text = String.Format("{0:C}", tax);
             listView2.Items[2].SubItems[1].Text = String.Format("{0:C}", discount);
-            listView2.Items[3].SubItems[1].Text = listView2.Items[1].SubItems[1].Text = String.Format("{0:C}", total);
+            listView2.Items[3].SubItems[1].Text =  String.Format("{0:C}", total);
 
             listView3.Items[0].SubItems[1].Text = String.Format("{0:C}", total);
             listView3.Items[1].SubItems[1].Text = String.Format("{0:C}", amountPaid);
-            listView3.Items[1].SubItems[1].Text = String.Format("{0:C}", change);
+            listView3.Items[2].SubItems[1].Text = String.Format("{0:C}", change);
         }
 
         internal void UpdateDisplayMode()
