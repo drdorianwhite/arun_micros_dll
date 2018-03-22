@@ -97,8 +97,6 @@ namespace customerdisplay
             }
 
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pnlPaidScreen.Width = this.Size.Width;
-            pnlPaidScreen.Height = this.Size.Height;
            
             SetPictureDirectory();
             timer1.Start();
