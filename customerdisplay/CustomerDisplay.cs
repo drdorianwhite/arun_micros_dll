@@ -56,8 +56,6 @@ namespace customerdisplay
         [DllExport("cdsetdisplaymode")]
         public static void CDSetDisplayMode(int mode)
         {
-
-            MessageBox.Show("started cdshowdisplay");
             if (mode == 1)
             {
                 displayMode = DisplayMode.OpenOrder;
