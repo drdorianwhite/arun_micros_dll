@@ -90,5 +90,8 @@ endevent
 
 
 event final_tender
+//@CHANGE (has value if ttldue == "0.00")
+//@TTLDUE (how muc is still needed)
+//@CHK_TTL (total of check)
 	DLLCALL_CDECL dll_handle, cdsetdisplaymode (1)
 endevent
