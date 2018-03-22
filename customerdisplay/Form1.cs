@@ -47,12 +47,9 @@ namespace customerdisplay
             float tax = CustomerDisplay.orderData.tax;
             float discount = CustomerDisplay.orderData.discount;
             float total = subtotal + tax + discount;
+
             float amountPaid = CustomerDisplay.orderData.amountPaid;
-            float change = 0;
-
-            if (amountPaid > 0)
-                change = amountPaid - total;
-
+            float change = amountPaid - total;
 
             listView2.Items[0].SubItems[1].Text = String.Format("{0:C}", subtotal);
             listView2.Items[1].SubItems[1].Text = String.Format("{0:C}", tax);
@@ -102,8 +99,7 @@ namespace customerdisplay
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pnlPaidScreen.Width = this.Size.Width;
             pnlPaidScreen.Height = this.Size.Height;
-            pictureBox2.Width = this.Size.Width - pictureBox2.Location.X;
-            
+           
             SetPictureDirectory();
             timer1.Start();
         }

@@ -70,9 +70,7 @@ endevent
 event repopen_check
 endevent
 
-event tndr
-//figure out amount paid (or change?)
-endevent
+
 
 event trans_cancel
 
@@ -85,9 +83,6 @@ endevent
 
 
 event final_tender
-
-infomessage @ttldue
-infomessage @prevpay
-infomessage @Tndttl
+	DLLCALL_CDECL dll_handle, cdsenddata (4,0," ",0, @ttldue, " ",@Tndttl)
 	DLLCALL_CDECL dll_handle, cdsetdisplaymode (2)
 endevent
