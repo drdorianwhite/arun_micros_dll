@@ -47,6 +47,11 @@ public class OrderData
         orderItems.Add(item);
     }
 
+    public void voidItem(int itemid)
+    {
+        orderItems.RemoveAt(orderItems.Count - 1);
+    }
+
     //adds to last menu item ordered
     public void addCondement(String name, float price, int microsCheckItemID)
     {

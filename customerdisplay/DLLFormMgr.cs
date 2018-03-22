@@ -51,6 +51,8 @@ namespace customerdisplay
 
         internal void UpdateDisplayMode()
         {
+            Thread.Sleep(50);
+
             if (appContext == null)
                 MessageBox.Show("calling updatedisplay before display window launched");
             else
@@ -76,6 +78,7 @@ namespace customerdisplay
 
         public void UpdateOrder()
         {
+            Thread.Sleep(50);
             UpdateOrderDisplay function = new UpdateOrderDisplay(DispatchUpdateOrderDisplay);
             appContext.MainForm.Invoke(function);
         }

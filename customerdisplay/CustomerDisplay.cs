@@ -46,7 +46,6 @@ namespace customerdisplay
                     MessageBox.Show("image directory: " + imagesDirectory + " doesn't exist.  Cusomer display won't work!");
                 else
                 {
-                    
                     formMgr = new DLLFormMgr();
                 }
             }
@@ -68,7 +67,7 @@ namespace customerdisplay
                 displayMode = DisplayMode.PaidOrder;
             }
 
-            Thread.Sleep(200);
+            
             formMgr.UpdateDisplayMode();
         }
 
@@ -81,13 +80,12 @@ namespace customerdisplay
             {
                 orderData.addItem(title, quantity, float.Parse(price), itemid);
                 orderData.tax = float.Parse(taxTotal);
-                Thread.Sleep(50);
                 formMgr.UpdateOrder();
             }
             else if (message == 1) //add condement...
             {
+                MessageBox.Show("adding condement:" + title);
                 orderData.addCondement(title, float.Parse(price), itemid);
-                Thread.Sleep(50);
                 formMgr.UpdateOrder();
 
             }
@@ -97,24 +95,22 @@ namespace customerdisplay
                 orderData.tax = 0;
                 orderData.discount = 0;
                 orderData.amountPaid = 0;
-                Thread.Sleep(50);
                 formMgr.UpdateOrder();
             }
             else if (message == 3) //update discount
             {
                 orderData.discount = float.Parse(extra);
-                Thread.Sleep(50);
                 formMgr.UpdateOrder();
             }
             else if (message == 4) //update amount paid
             {
                 orderData.amountPaid = float.Parse(extra);
-                Thread.Sleep(50);
                 formMgr.UpdateOrder();
             }
             else if(message == 5) //void item
             {
-
+                orderData.voidItem(itemid);
+                formMgr.UpdateOrder();
             }
             else
             {

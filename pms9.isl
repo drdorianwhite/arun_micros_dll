@@ -80,6 +80,14 @@ event tndr
 //figure out amount paid (or change?)
 endevent
 
+event trans_cancel
+infomessage "transaction cancelled"
+endevent
+
+event void_check
+info "void_check"
+endevent
+
 
 event final_tender
 	DLLCALL_CDECL dll_handle, cdsetdisplaymode (1)
