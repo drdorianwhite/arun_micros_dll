@@ -17,6 +17,7 @@ public class OrderData
             public string description;
             public CondementStyle style;
             public int microsCheckItemID;
+            public float price;
         }
 
         public string itemName;
@@ -69,10 +70,13 @@ public class OrderData
 
     public bool hasCondement(int microsCheckItemID)
     {
-        foreach (OrderItem.Condement c in orderItems[orderItems.Count - 1].condements)
+        foreach (OrderItem item in orderItems)
         {
-            if (c.microsCheckItemID == microsCheckItemID)
-                return true;
+            foreach(OrderItem.Condement c in item.condements)
+            {
+                if (c.microsCheckItemID == microsCheckItemID)
+                    return true;
+            }
         }
 
         return false;
@@ -84,8 +88,9 @@ public class OrderData
         if (this.hasCondement(microsCheckItemID))
             return;
 
-        OrderItem.Condement condement = new OrderItem.Condement();
+        OrderItem.sCondement condement = new OrderItem.Condement();
         condement.description = name;
+        condement.price = price;
         condement.microsCheckItemID = microsCheckItemID;
         orderItems[orderItems.Count - 1].condements.Add(condement);
     }
@@ -118,8 +123,12 @@ public class OrderData
     {
         float subtotal = 0;
         foreach (OrderItem item in orderItems)
+        {
             subtotal += item.price;
 
+            foreach (OrderItem.Condement c in item.condements)
+                subtotal += c.price;
+        }
         return subtotal;
     }
 }

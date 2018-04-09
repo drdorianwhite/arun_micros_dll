@@ -39,6 +39,8 @@ namespace customerdisplay
                 foreach(OrderData.OrderItem.Condement c in item.condements)
                 {
                     i = new ListViewItem(c.description);
+                    if(c.price > 0)
+                        i.SubItems.Add(c.price.ToString());
                     listView1.Items.Add(i);
                 }
             }
