@@ -88,7 +88,7 @@ public class OrderData
         if (this.hasCondement(microsCheckItemID))
             return;
 
-        OrderItem.sCondement condement = new OrderItem.Condement();
+        OrderItem.Condement condement = new OrderItem.Condement();
         condement.description = name;
         condement.price = price;
         condement.microsCheckItemID = microsCheckItemID;
