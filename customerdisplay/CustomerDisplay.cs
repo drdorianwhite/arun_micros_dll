@@ -47,7 +47,6 @@ namespace customerdisplay
         [DllExport("cdsetdisplaymode")]
         public static void CDSetDisplayMode(int mode)
         {
-            MessageBox.Show("Cusomter Display Final Version");
             if (mode == 1)
             {
                 displayMode = DisplayMode.OpenOrder;
@@ -74,7 +73,7 @@ namespace customerdisplay
             }
             else if (message == 1) //add condement...
             {
-                orderData.addCondement(title, float.Parse(price), itemid);
+                orderData.addCondement("  " + title, float.Parse(price), itemid);
                 formMgr.UpdateOrder();
             }
             else if (message == 2) //clear order display (cancel order)
@@ -87,7 +86,7 @@ namespace customerdisplay
             }
             else if (message == 3) //update discount
             {
-                orderData.discount = float.Parse(extra);
+                orderData.discount = float.Parse(extra.Substring(0,extra.Length - 1));
                 formMgr.UpdateOrder();
             }
             else if (message == 4) //update amount paid

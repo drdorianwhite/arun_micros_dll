@@ -48,7 +48,7 @@ namespace customerdisplay
             float subtotal = CustomerDisplay.orderData.getSubtotal();
             float tax = CustomerDisplay.orderData.tax;
             float discount = CustomerDisplay.orderData.discount;
-            float total = subtotal + tax + discount;
+            float total = subtotal + tax - discount;
 
             float amountPaid = CustomerDisplay.orderData.amountPaid;
             float change = amountPaid - total;
