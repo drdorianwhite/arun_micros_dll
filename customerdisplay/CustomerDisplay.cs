@@ -86,6 +86,7 @@ namespace customerdisplay
             }
             else if (message == 3) //update discount
             {
+                orderData.tax = float.Parse(taxTotal);
                 orderData.discount = float.Parse(extra.Substring(0,extra.Length - 1));
                 formMgr.UpdateOrder();
             }
