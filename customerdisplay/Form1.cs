@@ -34,7 +34,7 @@ namespace customerdisplay
             foreach(OrderData.OrderItem item in CustomerDisplay.orderData.orderItems)
             {
                 ListViewItem i = new ListViewItem(item.quantity + "x " + item.itemName);
-                i.SubItems.Add(item.price.ToString());
+                i.SubItems.Add(item.price.ToString("c"));
                 listView1.Items.Add(i);
                 foreach(OrderData.OrderItem.Condement c in item.condements)
                 {
@@ -47,8 +47,6 @@ namespace customerdisplay
 
             float subtotal = CustomerDisplay.orderData.getSubtotal();
             float tax = CustomerDisplay.orderData.tax;
-            float discount = CustomerDisplay.orderData.discount;
-            subtotal -= discount;
             float total = subtotal + tax;
 
             float amountPaid = CustomerDisplay.orderData.amountPaid;
@@ -56,8 +54,8 @@ namespace customerdisplay
 
             listView2.Items[0].SubItems[1].Text = String.Format("{0:C}", subtotal);
             listView2.Items[1].SubItems[1].Text = String.Format("{0:C}", tax);
-            listView2.Items[2].SubItems[1].Text = String.Format("{0:C}", discount);
-            listView2.Items[3].SubItems[1].Text =  String.Format("{0:C}", total);
+            //listView2.Items[2].SubItems[1].Text = String.Format("{0:C}", discount);
+            listView2.Items[2].SubItems[1].Text =  String.Format("{0:C}", total);
 
             listView3.Items[0].SubItems[1].Text = String.Format("{0:C}", total);
             listView3.Items[1].SubItems[1].Text = String.Format("{0:C}", amountPaid);

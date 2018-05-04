@@ -106,5 +106,34 @@ namespace customerdisplay
             }
             
         }
+
+        [DllExport("cdsenddata2")]
+        public static void CDSendOrderData2(int arrayLen, [MarshalAs(UnmanagedType.LPArray, SizeConst = 900)]string[] types, [MarshalAs(UnmanagedType.LPArray, SizeConst = 900)]string[] titles,  [MarshalAs(UnmanagedType.LPArray, SizeConst = 900)]string[] prices, [MarshalAs(UnmanagedType.LPArray, SizeConst = 900)]string[] quantities, [MarshalAs(UnmanagedType.LPStr, SizeConst = 900)] string taxTotal)
+        {
+            orderData.orderItems.Clear();
+            orderData.tax = float.Parse(taxTotal);
+            orderData.discount = 0;
+            orderData.amountPaid = 0;
+
+            for (int i = 0; i < arrayLen; i++)
+            {
+                if (types[i] == "M")
+                {
+                    orderData.addItem(titles[i], int.Parse(quantities[i]), float.Parse(prices[i]), i);
+                }
+                else if (types[i] == "C")
+                {
+                    orderData.addCondement("  " + titles[i], float.Parse(prices[i]), i);
+                }
+                else if (types[i] == "D")
+                {
+                    orderData.discount = float.Parse(prices[i].Substring(0, prices[i].Length - 1));
+                    orderData.addItem(titles[i], 1, float.Parse(prices[i]), i);
+                }
+            }
+
+            formMgr.UpdateOrder();
+
+        }
     }
 }
