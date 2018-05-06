@@ -182,11 +182,12 @@
             this.label2.BackColor = System.Drawing.Color.White;
             this.label2.Font = new System.Drawing.Font("Segoe Script", 32F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.label2.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label2.Location = new System.Drawing.Point(127, 95);
+            this.label2.Location = new System.Drawing.Point(71, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(277, 71);
             this.label2.TabIndex = 9;
             this.label2.Text = "Thank You";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // listView3
             // 

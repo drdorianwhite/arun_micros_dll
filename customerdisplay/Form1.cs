@@ -60,6 +60,8 @@ namespace customerdisplay
             listView3.Items[0].SubItems[1].Text = String.Format("{0:C}", total);
             listView3.Items[1].SubItems[1].Text = String.Format("{0:C}", amountPaid);
             listView3.Items[2].SubItems[1].Text = String.Format("{0:C}", change);
+
+            listView1.Items[listView1.Items.Count - 1].EnsureVisible();
         }
 
         internal void UpdateDisplayMode()
@@ -129,6 +131,11 @@ namespace customerdisplay
                 pictureBox1.Load(picturePaths[displayedPictureIndex]);
                 displayedPictureIndex++;
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
