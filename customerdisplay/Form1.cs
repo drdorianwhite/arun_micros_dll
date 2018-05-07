@@ -61,7 +61,8 @@ namespace customerdisplay
             listView3.Items[1].SubItems[1].Text = String.Format("{0:C}", amountPaid);
             listView3.Items[2].SubItems[1].Text = String.Format("{0:C}", change);
 
-            listView1.Items[listView1.Items.Count - 1].EnsureVisible();
+            if(listView1.Items.Count > 0)
+                listView1.Items[listView1.Items.Count - 1].EnsureVisible();
         }
 
         internal void UpdateDisplayMode()

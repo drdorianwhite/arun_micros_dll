@@ -114,6 +114,8 @@ namespace customerdisplay
             orderData.tax = float.Parse(taxTotal);
             orderData.discount = 0;
             orderData.amountPaid = 0;
+            string discountName = "";
+            int discountId = 0;
 
             for (int i = 0; i < arrayLen; i++)
             {
@@ -127,10 +129,18 @@ namespace customerdisplay
                 }
                 else if (types[i] == "D")
                 {
-                    orderData.discount = float.Parse(prices[i].Substring(0, prices[i].Length - 1));
-                    orderData.addItem(titles[i], 1, float.Parse(prices[i]), i);
+                    if (discountId == 0)
+                    {
+                        discountId = i;
+                        discountName = titles[i];
+                    }
+                    orderData.discount += float.Parse(prices[i]);
                 }
             }
+
+            if(discountId != 0)
+                orderData.addItem(discountName, 1, orderData.discount, discountId);
+
 
             formMgr.UpdateOrder();
 
